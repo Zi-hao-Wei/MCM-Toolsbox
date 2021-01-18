@@ -2,6 +2,7 @@ import pandas as pd
 from fbprophet import Prophet
 import numpy as np
 import matplotlib.pyplot as plt 
+from sklearn.preprocessing import MinMaxScaler
 
 df = pd.read_csv('ChinaBank.csv',parse_dates=['Date'],usecols=['Date','Close'])
 df = df.rename(columns={'Date':'ds','Close':'y'})
@@ -10,7 +11,7 @@ df = df.rename(columns={'Date':'ds','Close':'y'})
 maxNum=df['y'].max()
 minNum=df['y'].min()
 
-df['y']=df['y'].apply(lambda x: (x - maxNum) / (maxNum - minNum))
+df['y']=df['y'].apply(lambda x: (x - minNum) / (maxNum - minNum))
 
 
 # print(df)
